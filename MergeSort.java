@@ -1,78 +1,71 @@
-import java.util.*;
-
+import java.util.Scanner;
 public class MergeSort {
-
-    public static void mergeSort(int[] arr, int left, int right) {
-        if (left < right) {
-            int mid = (left + right) / 2;
-            mergeSort(arr, left, mid);
-            mergeSort(arr, mid + 1, right);
-            merge(arr, left, mid, right);
-        }
-    }
-
-    public static void merge(int[] arr, int left, int mid, int right) {
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
-
-        int[] leftArr = new int[n1];
-        int[] rightArr = new int[n2];
-
-        for (int i = 0; i < n1; i++)
-            leftArr[i] = arr[left + i];
-        for (int j = 0; j < n2; j++)
-            rightArr[j] = arr[mid + 1 + j];
-
-        int i = 0, j = 0, k = left;
-
-        while (i < n1 && j < n2) {
-            if (leftArr[i] <= rightArr[j]) {
-                arr[k] = leftArr[i];
-                i++;
-            } else {
-                arr[k] = rightArr[j];
-                j++;
-            }
-            k++;
-        }
-
-        while (i < n1) {
-            arr[k] = leftArr[i];
-            i++;
-            k++;
-        }
-
-        while (j < n2) {
-            arr[k] = rightArr[j];
-            j++;
-            k++;
-        }
-    }
-
-    public static void printArray(int[] arr) {
-        for (int num : arr)
-            System.out.print(num + " ");
-        System.out.println();
-    }
+    // O(nlogn)
+    static int b[]; // Tempoery
 
     public static void main(String[] args) {
-        try (Scanner sc = new Scanner(System.in)) {
-            System.out.print("Enter number of elements: ");
-            int n = sc.nextInt();
-            
-            int[] arr = new int[n];
-            
-            System.out.println("Enter the elements:");
-            for (int i = 0; i < n; i++) {
-                arr[i] = sc.nextInt();
-            }
-            
-            System.out.println("Given Array:");
-            printArray(arr);
-            
-            mergeSort(arr, 0, n - 1);
-            
-            System.out.println("\nSorted Array:");
-            printArray(arr);
+        Scanner input = new Scanner(System.in);
+        int arr[];
+
+        System.out.println("Enter the number of elements in an Array: ");
+        int n = input.nextInt();
+
+        arr = new int[n];
+        b = new int[n];
+
+        System.out.println("Sorted Array to be sorted: ");
+        for(int i=0; i < n; i++) {
+            arr[i] = input.nextInt();
         }
-    }}
+        
+        divide(arr, 0, n-1);
+
+        System.out.println("Sorted Array is: ");
+        for(int i=0; i < n; i++) {
+            System.out.println(arr[i] + " ");
+        }
+
+        input.close();
+    }
+
+    public static void divide(int arr[], int si, int ei) {
+        if( si >= ei) {
+            return;
+        }
+        // O(logn)
+        if(si < ei) {
+            int mid = si + (ei - si) / 2 ;
+            divide(arr, si, mid);
+            divide(arr, mid + 1, ei);
+            conquer(arr, si, mid, ei); 
+
+        }
+    }
+
+    public static void conquer(int arr[], int si, int mid, int ei) {
+        int merged[] = new int[ei - si + 1];
+        int indx1 = si;
+        int indx2 = mid + 1;
+        int x = 0;
+        // O(n)
+        while(indx1 <= mid && indx2 <= ei) {
+            if(arr[indx1] <= arr[indx2]) {
+                merged[x++] = arr[indx1++];
+            }else {
+                merged[x++] = arr[indx2++];
+            }
+        }
+        
+        while(indx1 <= mid) {
+            merged[x++] = arr[indx1++];
+        }
+        
+        while(indx2 <=ei) {
+            merged[x++] = arr[indx2++];
+        }
+        
+        for(int i=0, j =si; i < merged.length; i++, j++) {
+            arr[j] = merged[i];
+        }
+    }
+}
