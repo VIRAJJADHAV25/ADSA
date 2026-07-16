@@ -12,4 +12,4 @@ Merge Sort is a comparison-based sorting algorithm that follows the **Divide and
 - **In-Place:** ❌ No
 
 ➡️ **Read the complete explanation and source code here:**
-- [Merge Sort (Java)](Merge_sort/MERGESORT.md)
+- [Merge Sort (Java)](Merge_Sort/MERGESORT.md)
