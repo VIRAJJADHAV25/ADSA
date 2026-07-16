@@ -1,8 +1,6 @@
 import java.util.Scanner;
 public class MergeSort {
     // O(nlogn)
-    static int b[]; // Tempoery
-
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int arr[];
@@ -11,7 +9,6 @@ public class MergeSort {
         int n = input.nextInt();
 
         arr = new int[n];
-        b = new int[n];
 
         System.out.println("Sorted Array to be sorted: ");
         for(int i=0; i < n; i++) {
